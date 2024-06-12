@@ -60,14 +60,22 @@
 <button onclick="add()">Add</button>
 </div>
  <script>
-    const todolist = []
+    let todolist = [];
+
+    const listfromlocalstore = localStorage.getItem("todolist");
+    if(listfromlocalstore){
+        todolist = JSON.parse(listfromlocalstore);
+        mainTodolist()
+    }
 
     function add(){
         const inputElement = document.getElementById('input-todo')
         todolist.push(inputElement.value)
-        inputElement.value = ""
 
-        mainTodolist()
+        localStorage.setItem("todolist", JSON.stringify(todolist));
+
+        inputElement.value = ""
+        mainTodolist();
     }
 
        function mainTodolist(){
